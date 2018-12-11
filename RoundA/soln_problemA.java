@@ -11,26 +11,55 @@ public class soln_problemA
 	{
 		Scanner in = new Scanner(new File("input.txt"));
 		int t = in.nextInt(); //reading integer input from file
-		int num; 
+		int num, numCopy; 
+		String plus="", minus="";
 		int result =0, div=0;
+	
 		for(int i=1; i<= t; i++)
 		{
 			num = in.nextInt();
-			while(num > 0)
-			{
-				int digit = num % 10;
-				if(( digit & 1) != 0) //checking if last digit of num is even
-				{
-					result= result + 10^div;
-				}
+			numCopy= num;
+			String str = String.valueOf(num);
 
-				num=num/10;	
-				div++; //number of times num has been divided by ten
+			for (int j=0; j< str.length(); j++)
+			{
+				
+				int digit = Character.getNumericValue(str.charAt(j)) ;
+				if ((digit % 2) != 0)
+				{
+					minus = str.replace(str.charAt(j), (char) (digit -1) );
+					plus = str.replace(str.charAt(j), (char) (digit+1) );
+					
+					for (int k=j+1; k<str.length(); k++)
+					{
+						minus = str.replace(str.charAt(k), '8');
+						plus = str.replace (str.charAt(k), '0');
+					}
+					
+					j= str.length() +1;
+				}
+			}
+
+			if(plus != "")
+			{	
+				result = Integer.parseInt(plus) - num;
+				int minusdiff = num - Integer.parseInt(minus);
+				if (result > minusdiff)
+					result = minusdiff;
 			}
    		        System.out.println("Case #" + i + ": " +result);
 			result=0;
-			div=0;
 		}
 	}
 }
 
+//7013
+//6888
+//
+//7712
+//8000
+//
+//79
+//80
+//
+//
